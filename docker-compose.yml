@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  redis_memory:
+    image: redis:7
+    container_name: redis_memory
+    command: ["redis-server", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+
+  redis_disk:
+    image: redis:7
+    container_name: redis_disk
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "always"]
+    ports:
+      - "6380:6379"
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+
+  node:
+    build: .
+    container_name: node_test
+    environment:
+      - REDIS_MEMORY_URL=redis://redis_memory:6379
+      - REDIS_DISK_URL=redis://redis_disk:6379
+      - MONGO_URL=mongodb://mongo:27017/testdb
+      - POSTGRES_URL=postgresql://test:test@postgres:5432/testdb
+    depends_on:
+      - redis_memory
+      - redis_disk
+      - mongo
+      - postgres
+    command: ["node", "src/main.js"]
