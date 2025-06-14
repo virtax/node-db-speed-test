@@ -4,26 +4,39 @@
 This project benchmarks read/write performance across different storage systems using Node.js:
 
 🧠 In-Memory JavaScript Object
+
 🧠 In-Memory JavaScript Array
+
 📄 Flat File (line-by-line key:value format)
+
 💾 Redis (Memory Only and Disk Persistence modes)
+
 🧬 MongoDB
+
 🐘 PostgreSQL
+
 The project is containerized using Docker Compose and runs all tests in a single command.
 
 🚀 Quick Start
 
 1. Clone the repository
-git clone https://github.com/your-username/storage-benchmark-node.git
-cd storage-benchmark-node
-1. Start the benchmark
-docker-compose up --build
-This command:
 
+```
+git clone https://github.com/virtax/node-db-speed-test.git
+cd node-db-speed-test
+```
+
+2. Start the benchmark
+```
+docker-compose up --build
+```
+
+This command:
 Builds and starts all services (Redis, MongoDB, PostgreSQL, Node.js)
 Waits 5 seconds for services to be ready
 Executes all tests and prints timing results
 
+```
 📁 Project Structure
 .
 ├── docker-compose.yml         # All service definitions
@@ -36,9 +49,10 @@ Executes all tests and prints timing results
     ├── inMemoryObjectTest.js
     ├── inMemoryArrayTest.js
     ├── fileTest.js
+```
 
 📈 Sample Output
-
+```
 2025-06-14 14:54:31 Start tests
 2025-06-14 14:54:31 Waiting 5 seconds for all services to be ready...
 2025-06-14 14:54:36
@@ -75,7 +89,7 @@ Executes all tests and prints timing results
 2025-06-14 14:54:43 Read time: 424.844ms
 2025-06-14 14:54:43
 2025-06-14 14:54:43 Finish tests
-
+```
 ⚠️ Numbers may vary depending on hardware and OS.
 
 🔧 Configuration
